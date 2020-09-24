@@ -21,6 +21,7 @@
 let activeSection = document.querySelector('.active-section');
 let activeNav = document.querySelector('.active-nav');
 const sections = document.querySelectorAll('section');
+let lastScrollY = 0;
 
 /**
  * End Global Variables
@@ -32,16 +33,19 @@ function makeNavButton(section) {
     const newNavButton = document.createElement('li');
     newNavButton.classList.add('menu__link');
     newNavButton.textContent = section.dataset.nav;
-    // newNavButton.setAttribute('data-id', `nav-${section.id}`);
+    newNavButton.setAttribute('data-id', section.id);
     newNavButton.id = `nav-${section.id}`;
+    if (activeNav == null) {
+        newNavButton.classList.add('active-nav')
+        activeNav = newNavButton;
+    }
     return newNavButton;
 }
 
+// TODO: edit this to not be based on click anymore, it's scroll
 function setActiveNav(clickedNav) {
     if (activeNav !== clickedNav) {
-        if (activeNav !== null) {
-            activeNav.classList.remove('active-nav');
-        }
+        activeNav.classList.remove('active-nav');
         clickedNav.classList.add('active-nav')
         activeNav = clickedNav;
     }
@@ -58,7 +62,7 @@ function setActiveSection(section) {
 function onNavClick(event) {
     const section = document.querySelector(`#${event.target.dataset.id}`);
     section.scrollIntoView({behavior: 'smooth'});
-    setActiveNav(event.target);
+    // setActiveNav(event.target);
     setActiveSection(section);
 }
 
@@ -97,18 +101,27 @@ function buildNavMenu() {
 // Build menu
 buildNavMenu();
 
-document.addEventListener('scroll', function() {setTimeout(scrollCheck(), 10000)});
+document.addEventListener('scroll', function() {scrollCheck()});
 function scrollCheck() {
-    // let count = 1;
+    // Don't need count, here or below, in final code
+    let count = 1;
+    let viewportHeight = window.innerHeight;
+    let ratioForActive;
+    if (window.scrollY > lastScrollY) {
+        ratioForActive = viewportHeight/3;
+    } else {
+        ratioForActive = viewportHeight*2/3;
+    }
+    lastScrollY = window.scrollY;
     for (const section of sections) {
         let position = section.getBoundingClientRect();
-        // console.log(`Section ${count}: top ${position.top.toFixed(0)} bottom ${position.bottom.toFixed(0)}`);
-        if (position.top <= 0 && position.bottom >= 0) {
-            // console.log(`Section ${count} is in view now.`)
+        console.log(`Section ${count}: top ${position.top.toFixed(0)} bottom ${position.bottom.toFixed(0)}`);
+        if (position.top <= ratioForActive && position.bottom >= ratioForActive && section !== activeSection) {
+            console.log(`Section ${count} is in view now.`)
             setActiveSection(section);
             setActiveNav(document.querySelector(`#nav-${section.id}`));
         }
-        // count += 1;
+        count += 1;
     }
 }
 
