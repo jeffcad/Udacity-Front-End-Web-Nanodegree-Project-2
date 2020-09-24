@@ -18,11 +18,8 @@
  * 
 */
 
-const sections = document.querySelectorAll('section');
-const navBar = document.querySelector('#navbar__list');
 let activeSection = document.querySelector('.active-section');
 let activeNav = document.querySelector('.active-nav');
-const fragment = document.createDocumentFragment();
 
 /**
  * End Global Variables
@@ -72,6 +69,9 @@ function onNavClick(event) {
 
 // build the nav
 function buildNavMenu() {
+    const navBar = document.querySelector('#navbar__list');
+    const sections = document.querySelectorAll('section');
+    const fragment = document.createDocumentFragment();
     for (const section of sections) {
         const newNavButton = makeNavButton(section);
         fragment.appendChild(newNavButton);
