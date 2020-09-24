@@ -96,7 +96,7 @@ buildNavMenu();
 
 document.addEventListener('scroll', function() {scrollCheck()});
 function scrollCheck() {
-    let viewportHeight = window.innerHeight;
+    const viewportHeight = window.innerHeight;
     let ratioForActive;
     if (window.scrollY > lastScrollY) {
         ratioForActive = viewportHeight/3;
@@ -105,7 +105,7 @@ function scrollCheck() {
     }
     lastScrollY = window.scrollY;
     for (const section of sections) {
-        let position = section.getBoundingClientRect();
+        const position = section.getBoundingClientRect();
         if (position.top < ratioForActive && position.bottom > ratioForActive && section !== activeSection) {
             setActiveSection(section);
             setActiveNav(document.querySelector(`#nav-${section.id}`));
