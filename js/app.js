@@ -34,6 +34,7 @@ function makeNavButton(section) {
     const newNavButton = document.createElement('li');
     newNavButton.classList.add('menu__link');
     newNavButton.textContent = section.dataset.nav;
+    newNavButton.setAttribute('data-id', section.id);
     return newNavButton;
 }
 
@@ -55,6 +56,13 @@ function setActiveSection(section) {
     }
 }
 
+function onNavClick(event) {
+    const section = document.querySelector(`#${event.target.dataset.id}`);
+    section.scrollIntoView({behavior: 'smooth'});
+    setActiveNav(event.target);
+    setActiveSection(section);
+}
+
 
 /**
  * End Helper Functions
@@ -63,7 +71,14 @@ function setActiveSection(section) {
 */
 
 // build the nav
-
+function buildNavMenu() {
+    for (const section of sections) {
+        const newNavButton = makeNavButton(section);
+        fragment.appendChild(newNavButton);
+    }
+    navBar.appendChild(fragment);
+    navBar.addEventListener('click', onNavClick);
+}
 
 // Add class 'active' to section when near top of viewport
 
@@ -78,17 +93,8 @@ function setActiveSection(section) {
 */
 
 // Build menu
-// TODO: set listener only on parent element, use target delegation
-for (const section of sections) {
-    const newNavButton = makeNavButton(section);
-    newNavButton.addEventListener('click', function() {
-        section.scrollIntoView({behavior: 'smooth'});
-        setActiveNav(newNavButton);
-        setActiveSection(section);
-    });
-    fragment.appendChild(newNavButton);
-}
-navBar.appendChild(fragment);
+buildNavMenu();
+
 
 // Scroll to section on link click
 
