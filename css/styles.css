@@ -11,8 +11,8 @@
 
 /* ---- Base Rules ---- */
 body {
-    background: rgb(136,203,171);
-    background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
+    /* background: rgb(136,203,171); */
+    background: linear-gradient(0deg, #b3d7ff 0%, #39f 100%);
     margin: 0;
     font-family: 'Merriweather', serif;
     color: #fff;
@@ -30,6 +30,7 @@ h1 {
     h1 {
         font-size: 7em;
         margin: 2em 4rem 1em;
+        text-shadow: 5px 5px 10px #001833;
     }
 }
 
@@ -38,6 +39,7 @@ h2 {
     font-family: 'Oxygen', Sans-Serif;
     font-size: 3em;
     color: #fff;
+    text-shadow: 3px 3px 5px #001833;
 }
 
 p {
@@ -87,14 +89,14 @@ section {
 }
 
 .menu__link:hover {
-    background: #333;
+    background: #39f;
     color: #fff;
     transition: ease 0.3s all;
     cursor: pointer;
 }
 
 .active-nav {
-    background-color: rgb(220, 239, 230);
+    background-color: #b3d7ff;
 }
 
 /* Header Styles */
@@ -142,7 +144,7 @@ section:nth-of-type(even) .landing__container {
 /* Background Circles */
 /* Note that background circles are created with psuedo elements before and after */
 /* Circles appear to be random due to use of :nth-of-type psuedo class */
-section:nth-of-type(odd) .landing__container::before {
+/* section:nth-of-type(odd) .landing__container::before {
     content: '';
     background: rgba(255, 255, 255, 0.187);
     position: absolute;
@@ -197,18 +199,18 @@ section:nth-of-type(3n + 1) .landing__container::after {
     border-radius: 50%;
     opacity: 0;
     transition: ease 0.5s all;
-}
+} */
 
 
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 section.active-section {
-    background: rgb(0, 0, 0);
+    /* background: rgb(0, 0, 0); */
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
-section.active-section .landing__container::before {
+/* section.active-section .landing__container::before {
     opacity: 1;
     animation: rotate 4s linear 0s infinite forwards;
 }
@@ -216,10 +218,10 @@ section.active-section .landing__container::before {
 section.active-section .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
-}
+} */
 
 /* Section Active Styles Keyframe Animations */
-@keyframes rotate {
+/* @keyframes rotate {
 	from {
 		transform: rotate(0deg)
 		           translate(-1em)
@@ -230,4 +232,4 @@ section.active-section .landing__container::after {
 		           translate(-1em) 
 		           rotate(-360deg);
 	}
-}
+} */

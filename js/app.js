@@ -42,28 +42,21 @@ function makeNavButton(section) {
     return newNavButton;
 }
 
-// TODO: edit this to not be based on click anymore, it's scroll
-function setActiveNav(clickedNav) {
-    if (activeNav !== clickedNav) {
-        activeNav.classList.remove('active-nav');
-        clickedNav.classList.add('active-nav')
-        activeNav = clickedNav;
-    }
+function setActiveNav(nav) {
+    activeNav.classList.remove('active-nav');
+    nav.classList.add('active-nav')
+    activeNav = nav;
 }
 
 function setActiveSection(section) {
-    if (activeSection !== section) {
-        activeSection.classList.remove('active-section');
-        section.classList.add('active-section');
-        activeSection = section;
-    }
+    activeSection.classList.remove('active-section');
+    section.classList.add('active-section');
+    activeSection = section;
 }
 
 function onNavClick(event) {
     const section = document.querySelector(`#${event.target.dataset.id}`);
     section.scrollIntoView({behavior: 'smooth'});
-    // setActiveNav(event.target);
-    setActiveSection(section);
 }
 
 
@@ -103,8 +96,6 @@ buildNavMenu();
 
 document.addEventListener('scroll', function() {scrollCheck()});
 function scrollCheck() {
-    // Don't need count, here or below, in final code
-    let count = 1;
     let viewportHeight = window.innerHeight;
     let ratioForActive;
     if (window.scrollY > lastScrollY) {
@@ -115,13 +106,10 @@ function scrollCheck() {
     lastScrollY = window.scrollY;
     for (const section of sections) {
         let position = section.getBoundingClientRect();
-        console.log(`Section ${count}: top ${position.top.toFixed(0)} bottom ${position.bottom.toFixed(0)}`);
-        if (position.top <= ratioForActive && position.bottom >= ratioForActive && section !== activeSection) {
-            console.log(`Section ${count} is in view now.`)
+        if (position.top < ratioForActive && position.bottom > ratioForActive && section !== activeSection) {
             setActiveSection(section);
             setActiveNav(document.querySelector(`#nav-${section.id}`));
         }
-        count += 1;
     }
 }
 
@@ -129,5 +117,3 @@ function scrollCheck() {
 // Scroll to section on link click
 
 // Set sections as active
-
-
