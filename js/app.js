@@ -20,8 +20,9 @@
 
 let activeSection = document.querySelector('.active-section');
 let activeNav = document.querySelector('.active-nav');
-const sections = document.querySelectorAll('section');
 let lastScrollY = 0;
+const sections = document.querySelectorAll('section');
+const goUpButton = document.querySelector('#go-up-button');
 
 /**
  * End Global Variables
@@ -95,8 +96,16 @@ function buildNavMenu() {
 buildNavMenu();
 
 document.addEventListener('scroll', function() {scrollCheck()});
+
+goUpButton.addEventListener('click', function() {window.scrollTo({top: 0, behavior: 'smooth'})});
+
 function scrollCheck() {
     const viewportHeight = window.innerHeight;
+    if (window.scrollY > 500) {
+        goUpButton.classList.remove('hide');
+    } else {
+        goUpButton.classList.add('hide');
+    }
     let ratioForActive;
     if (window.scrollY > lastScrollY) {
         ratioForActive = viewportHeight/3;
@@ -109,6 +118,7 @@ function scrollCheck() {
         if (position.top < ratioForActive && position.bottom > ratioForActive && section !== activeSection) {
             setActiveSection(section);
             setActiveNav(document.querySelector(`#nav-${section.id}`));
+            break;
         }
     }
 }
