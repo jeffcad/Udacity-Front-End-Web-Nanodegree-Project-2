@@ -75,10 +75,17 @@ section {
 .menu__link {
     display: block;
     padding: 1em;
+    font-size: 1.2em;
     font-weight: bold;
     text-decoration: none;
     color: #001833;
     border-left: 2px solid whitesmoke;
+}
+
+@media (max-width: 510px) {
+    .menu__link {
+        font-size: 0.7em;
+    }
 }
 
 .menu__link:hover {
